@@ -1,7 +1,7 @@
 # Self-Organizing Maps, Reinforcement Learning, and Particle Swarm Optimization  
 
 ## Overview  
-This repository contains implementations of **Self-Organizing Maps (SOM)**, **Reinforcement Learning (RL)**, and **Particle Swarm Optimization (PSO)** for various computational tasks. The objective of this assignment is to provide hands-on experience with these techniques, allowing students to explore:  
+This repository contains implementations of **Self-Organizing Maps (SOM)**, **Reinforcement Learning (RL)**, and **Particle Swarm Optimization (PSO)** for various computational tasks. Here we explored:  
 
 - **Data visualization using Self-Organizing Maps**  
 - **Agent navigation in a grid-world using Reinforcement Learning**  
