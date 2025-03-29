@@ -148,7 +148,14 @@ if __name__ == '__main__':
     # solver1 = Continuous_PSO(function1,xlim, ylim, phi, c1, c2, total_pop, total_iter)
 
     # # In order to verfify our results we optimize using Differential Evolution (Global Optimization)
-    # result = opt.differential_evolution(function1, bounds=[xlim, ylim])
+    # result = opt.differential_evolution(function2,
+    #                                     bounds=[xlim, ylim],
+    #                                     strategy='best1bin',
+    #                                     popsize=50,        # Increase population size
+    #                                     mutation=(0.8, 1), # More aggressive mutation
+    #                                     recombination=0.9, # Higher crossover probability
+    #                                     maxiter=500        # Allow more iterations
+    #                                     )
     # print("Global Minimum for Function 1 using Scipy Library:", result.x, "with value:", result.fun)
 
 
@@ -160,5 +167,12 @@ if __name__ == '__main__':
     solver2 = Continuous_PSO(function2,xlim, ylim, phi, c1, c2, total_pop, total_iter)
 
     # In order to verfify our results we optimize using Differential Evolution (Global Optimization)
-    result = opt.differential_evolution(function2, bounds=[xlim, ylim])
+    result = opt.differential_evolution(function2,
+                                        bounds=[xlim, ylim],
+                                        strategy='best1bin',
+                                        popsize=50,        # Increase population size
+                                        mutation=(0.8, 1), # More aggressive mutation
+                                        recombination=0.9, # Higher crossover probability
+                                        maxiter=500        # Allow more iterations
+                                        )
     print("Global Minimum for Function 1 using Scipy Library:", result.x, "with value:", result.fun)
