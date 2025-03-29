@@ -1,5 +1,4 @@
 import random
-import copy
 import math
 import numpy as np
 import matplotlib.pyplot as plt
@@ -11,13 +10,13 @@ class Continuous_PSO():
         self.func = func
         self.xlim = xlim #(a,b): a < x < b 
         self.ylim = ylim #(c,d): d < y < d
-        self.phi  = phi
-        self.c1   = c1
-        self.c2   = c2
+        self.phi  = phi # inertia
+        self.c1   = c1 # cognition constant
+        self.c2   = c2  # social constant
         self.avg_history= []
         self.best_history= []
 
-        #initiallizing swarm
+        #initiallizing swarm                                                          #randomly initializing position within bounds
         self.swarm = {'particles': [], 'global_best_val': math.inf, 'global_best_pos': np.array([random.uniform(self.xlim[0], self.xlim[1]), random.uniform(self.ylim[0], self.ylim[1])])}
         #Generating Swarm
         self.create_swarm(total_pop)
@@ -91,9 +90,10 @@ class Continuous_PSO():
         plt.show()
 
 
-    def PSO_solver(self, total_iter):
+    def PSO_solver(self, total_iter, tol=1e-6, patience=10):
 
         total_pop = len(self.swarm['particles'])
+        stagnation_counter = 0
        
         for j in range(total_iter):
             current_fitness = []
@@ -120,9 +120,19 @@ class Continuous_PSO():
             
             self.avg_history.append(np.mean(current_fitness))
             self.best_history.append(self.swarm['global_best_val'])
+            
+            #stopping criterion: Stop if the best solution hasn’t improved for K (patience) iterations
+            if len(self.best_history) > 1:
+              # print("Best Solution:", self.swarm['global_best_pos'], "Best Solution Value:", self.swarm['global_best_val']
+              if abs(self.best_history[-1] - self.best_history[-2]) < tol:
+                  stagnation_counter += 1
+                  if stagnation_counter >= patience:
+                      break
+              else:
+                  stagnation_counter = 0
 
         print("Best Solution:", self.swarm['global_best_pos'], "Best Solution Value:", self.swarm['global_best_val'])
-        self.plot_best_and_avg_so_far()             
+        self.plot_best_and_avg_so_far()           
         
 
 if __name__ == '__main__':
