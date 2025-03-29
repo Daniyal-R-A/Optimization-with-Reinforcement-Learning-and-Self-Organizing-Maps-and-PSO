@@ -37,11 +37,11 @@ def value_iteration(env, gamma, epsilon):
     # Initialize the value function for each state
     V = np.zeros(num_states)
 
-    #Write your code to implement value iteration main loop
+    #Implementing value iteration main loop
 
         
-        # taxi_row, taxi_col, passenger_location, destination = env.decode(41)
-        # print(f"Taxi at ({taxi_row}, {taxi_col}), Passenger at {passenger_location}, Destination at {destination}")
+    # taxi_row, taxi_col, passenger_location, destination = env.decode(41)
+    # print(f"Taxi at ({taxi_row}, {taxi_col}), Passenger at {passenger_location}, Destination at {destination}")
 
     while True:
 
@@ -62,16 +62,16 @@ def value_iteration(env, gamma, epsilon):
                 action_decision.append(expected_return)              
 
             max_value  =  max(action_decision) # best action value
-            V[state] = max_value
+            V[state] = max_value #Value Update
             delta = max(delta, abs(v - V[state])) # Tracking the maximum difference
         
-        if delta < epsilon: # Checking for convergence
+        if delta < epsilon: # Stopping Criteria: Checking for convergence
             break
 
     # For each state, the policy will tell you the action to take
     policy = np.zeros(num_states, dtype=int)
 
-    # Write your code here to extract the optimal policy from value function.
+    # Extracting the optimal policy from value function.
     for state in range(num_states): #for each state
 
         action_decision = []
@@ -85,7 +85,7 @@ def value_iteration(env, gamma, epsilon):
             for prob, next_state, reward, done in env.P[state][act]:
                 expected_return += prob * (reward + gamma * V[next_state])
             action_decision.append(expected_return)    
-        policy[state] = np.argmax(action_decision) 
+        policy[state] = np.argmax(action_decision)  #Action selection from learned policy 
 
 
     return policy, V
@@ -101,6 +101,7 @@ step = 0
 done = False
 state = state[0]
 
+# Execution of learned policy
 max_steps = 100
 for step in range(max_steps):
 
