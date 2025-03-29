@@ -1,11 +1,10 @@
-import warnings
-warnings.filterwarnings("ignore", category=DeprecationWarning)
-
 import numpy as np
+# manually aliasing np.bool8 to np.bool_, we silenced the warning while maintaining compatibility.
+np.bool8 = np.bool_  # Force-alias the deprecated type
+
 import gym
 import random
 import math
-
 
 env = gym.make("Taxi-v3", render_mode="human")  
 
@@ -64,9 +63,9 @@ def value_iteration(env, gamma, epsilon):
 
             max_value  =  max(action_decision) # best action value
             V[state] = max_value
-            delta = max(delta, abs(v - V[state])) 
+            delta = max(delta, abs(v - V[state])) # Tracking the maximum difference
         
-        if delta < epsilon:
+        if delta < epsilon: # Checking for convergence
             break
 
     # For each state, the policy will tell you the action to take
@@ -98,7 +97,6 @@ policy, V = value_iteration(env, discount_factor, delta_threshold)
 
 # resetting the environment and executing the policy
 state = env.reset()
-#state = state[0]
 step = 0
 done = False
 state = state[0]
