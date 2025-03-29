@@ -39,10 +39,6 @@ def value_iteration(env, gamma, epsilon):
 
     #Implementing value iteration main loop
 
-        
-    # taxi_row, taxi_col, passenger_location, destination = env.decode(41)
-    # print(f"Taxi at ({taxi_row}, {taxi_col}), Passenger at {passenger_location}, Destination at {destination}")
-
     while True:
 
         delta = 0
